@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: salario
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update # Pode ser 'none', 'update', 'validate', 'create', 'create-drop'
+    show-sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    properties:
+      hibernate:
+        format_sql: true
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+server:
+  port: 8080
+  servlet:
+    context-path: /salario
+
+logging:
+  file:
+    name: logs/sistema-salario.log
+  level:
+    root: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+
+joinfaces:
+  faces-servlet:
+    url-mappings:
+      - "*.xhtml"
+  faces:
+    project-stage: Development
+  primefaces:
+    theme: saga
+

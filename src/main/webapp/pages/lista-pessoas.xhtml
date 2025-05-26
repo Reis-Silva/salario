@@ -1,0 +1,129 @@
+<ui:composition template="/templates/layout.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="conteudo">
+        <h:form id="formLista">
+
+            <!-- 🔥 Toolbar -->
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <h3>Lista de Pessoas Cadastradas</h3>
+                </p:toolbarGroup>
+
+                <p:toolbarGroup>
+                    <p:outputLabel value="Pesquisar por Nome:" for="filtro" style="margin-right: 3px;"/>
+                    <p:inputText id="filtro" value="#{pessoaBean.filtroNome}" placeholder="Digite o nome"
+                                 style="margin-right: 10px;"/>
+
+                    <p:commandButton value="Pesquisar"
+                                     action="#{pessoaBean.pesquisar}"
+                                     update="formLista globalGrowl"
+                                     icon="pi pi-search"
+                                     style="margin-right: 5px;"/>
+
+                    <p:button value="Cadastrar"
+                              outcome="/pages/form-pessoa"
+                              icon="pi pi-plus"
+                              styleClass="ui-button-success"
+                              style="margin-right: 5px;"/>
+
+                    <!-- ✅ Botão para abrir o Dialog de Cargos e Salários -->
+                    <p:commandButton value="Cargos e Salários"
+                                     icon="pi pi-eye"
+                                     process="@form"
+                                     update="dialogCargos"
+                                     action="#{pessoaBean.buscarCargoVencimento}"
+                                     oncomplete="PF('dialogCargosWidget').show()"
+                                     styleClass="ui-button-info"/>
+
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <!-- 🔥 DataTable de Pessoas -->
+            <p:dataTable value="#{pessoaBean.pessoas}" var="p" paginator="true" rows="5" style="margin-top:10px;">
+                <p:column headerText="Nome">
+                    <h:outputText value="#{p.nome}"/>
+                </p:column>
+
+                <p:column headerText="Email" style="width: 300px;">
+                    <h:outputText value="#{p.email.toLowerCase()}"/>
+                </p:column>
+
+                <p:column headerText="Cargo">
+                    <h:outputText value="#{p.cargo.nome}"/>
+                </p:column>
+
+                <p:column headerText="Telefone">
+                    <h:outputText value="#{p.formatarTelefone}" />
+                </p:column>
+
+                <p:column headerText="Data de Nascimento:">
+                    <h:outputText value="#{p.dataNascimento}" />
+                </p:column>
+
+                <p:column headerText="CEP">
+                    <h:outputText value="#{p.formatarCep}"/>
+                </p:column>
+
+                <p:column headerText="Cidade">
+                    <h:outputText value="#{p.cidade}"/>
+                </p:column>
+
+                <p:column headerText="Ações">
+                    <p:commandButton
+                            icon="pi pi-pencil"
+                            title="Editar"
+                            style="margin-right: 3px;"
+                            action="#{pessoaBean.editar(p)}"
+                            process="@this"/>
+
+                    <p:commandButton
+                            icon="pi pi-trash"
+                            title="Excluir"
+                            process="@this"
+                            update="formLista globalGrowl"
+                            styleClass="ui-button-danger"
+                            oncomplete="PF('confirmDialog').show()">
+                        <f:setPropertyActionListener value="#{p}" target="#{pessoaBean.pessoa}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+
+            <!-- 🔥 Dialog de Cargos e Salários -->
+            <p:dialog header="Cargos e Salários"
+                      widgetVar="dialogCargosWidget"
+                      modal="true"
+                      id="dialogCargos"
+                      closable="true">
+                <p:dataTable value="#{pessoaBean.cargosVencimentos}" var="c">
+                    <p:column headerText="Calculo Geral">
+                        <h:outputText value="#{c}"/>
+                    </p:column>
+                </p:dataTable>
+            </p:dialog>
+
+            <!-- 🔥 Dialog de Confirmação de Exclusão -->
+            <p:confirmDialog widgetVar="confirmDialog"
+                             message="Tem certeza que deseja excluir esta pessoa?"
+                             header="Confirmação"
+                             severity="warn">
+
+                <p:commandButton value="Sim"
+                                 action="#{pessoaBean.excluir(pessoaBean.pessoa)}"
+                                 process="@this"
+                                 update="formLista globalGrowl"
+                                 oncomplete="PF('confirmDialog').hide()"/>
+
+                <p:commandButton value="Não"
+                                 type="button"
+                                 styleClass="ui-button-secondary"
+                                 onclick="PF('confirmDialog').hide()"/>
+            </p:confirmDialog>
+
+        </h:form>
+    </ui:define>
+</ui:composition>

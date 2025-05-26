@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio_pessoas" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="e6e6f9be-54e1-4f4f-9c6b-ec2345fabcde">
+	<parameter name="titulo" class="java.lang.String"/>
+	<parameter name="data_emissao" class="java.lang.String"/>
+	<field name="nomePessoa" class="java.lang.String"/>
+	<field name="nomeCargo" class="java.lang.String"/>
+	<field name="salario" class="java.math.BigDecimal"/>
+	<title>
+		<band height="50">
+			<textField>
+				<reportElement x="0" y="22" width="555" height="20" forecolor="#FA1E2D" uuid="23a1ab03-4957-411a-bb37-d73ab5cc39ef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Data de emissão: " + $P{data_emissao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="555" height="20" uuid="15fb1b43-5d0a-4bd5-af1a-65304972a6b0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{titulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="20">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="270" height="20" backcolor="#A9CFD6" uuid="e1a6ec25-9cab-4d90-8d42-ba54f2bbd1d7"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="270" y="0" width="150" height="20" backcolor="#A9CFD6" uuid="95a1680f-df1e-45de-a3d1-a4f354b01830"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Cargo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="420" y="0" width="135" height="20" backcolor="#A9CFD6" uuid="4b321431-0fa0-4047-b96d-6bda04ca590e"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Salário]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<textField>
+				<reportElement x="0" y="0" width="270" height="20" uuid="794b51e8-b4a8-49a9-99eb-acb545e40756"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomePessoa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="0" width="150" height="20" uuid="155fe49d-6443-4c3f-9ff1-2d8eb7c3a72d"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Double"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nomeCargo}]]></textFieldExpression>
+			</textField>
+            <textField pattern="R$ #,##0.00">
+                <reportElement x="420" y="0" width="135" height="20" uuid="d6c9975e-6dcc-4716-a40c-3659fc8cbbc6"/>
+                <box>
+                    <pen lineWidth="1.0" lineStyle="Double"/>
+                </box>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font fontName="Times New Roman" size="10"/>
+                </textElement>
+                <textFieldExpression><![CDATA[$F{salario}]]></textFieldExpression>
+            </textField>
+		</band>
+	</detail>
+</jasperReport>

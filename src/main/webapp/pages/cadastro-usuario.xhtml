@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Cadastro de Usuário</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            width: 500px;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+            width: 100%;
+        }
+
+        .form-group input {
+            width: 100% !important;
+            padding: 0.5rem;
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <p:growl id="globalGrowl" showDetail="true" life="10000"/>
+
+    <div class="login-container">
+        <h:form id="cadastroForm">
+            <p:panel header="Cadastro de Usuário">
+                <p:messages closable="true"/>
+
+                <div class="form-group">
+                    <p:outputLabel for="nome" value="Nome:"/>
+                    <p:inputText id="nome"
+                                 value="#{loginBean.nome}"
+                                 required="true"
+                                 label="Nome"
+                                 placeholder="Digite seu nome completo"/>
+                    <p:message for="nome"/>
+                </div>
+
+                <div class="form-group">
+                    <p:outputLabel for="email" value="Email:"/>
+                    <p:inputText id="email"
+                                 value="#{loginBean.email}"
+                                 required="true"
+                                 label="Email"
+                                 placeholder="exemplo@dominio.com"
+                                 validatorMessage="O email informado é inválido. Use o formato exemplo@dominio.com">
+                        <f:validateRegex pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"/>
+                    </p:inputText>
+                    <p:message for="email"/>
+                </div>
+
+                <div class="form-group">
+                    <p:outputLabel for="senha" value="Senha:"/>
+                    <p:password id="senha"
+                                value="#{loginBean.senha}"
+                                required="true"
+                                label="Senha"
+                                placeholder="Digite sua senha"/>
+                    <p:message for="senha"/>
+                </div>
+
+                <div class="form-group">
+                    <p:outputLabel for="confirmarSenha" value="Confirmar Senha:"/>
+                    <p:password id="confirmarSenha"
+                                value="#{loginBean.confirmarSenha}"
+                                required="true"
+                                label="Confirmar Senha"
+                                placeholder="Confirme sua senha"/>
+                    <p:message for="confirmarSenha"/>
+                </div>
+
+                <div class="buttons">
+                    <p:commandButton value="Cadastrar"
+                                     action="#{loginBean.cadastrar}"
+                                     icon="pi pi-save"
+                                     update="@form"/>
+
+                    <p:button value="Voltar ao Login"
+                              outcome="/pages/login"
+                              icon="pi pi-arrow-left"/>
+                </div>
+            </p:panel>
+        </h:form>
+    </div>
+</h:body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:metadata>
+    <f:event type="preRenderView"
+             listener="#{loginBean.verificarLogin}" />
+</f:metadata>
+
+<h:head>
+    <title>Sistema de Salário</title>
+    <h:outputStylesheet library="css" name="estilo.css"/>
+</h:head>
+
+<h:body>
+    <p:growl id="globalGrowl" showDetail="true" life="10000"/>
+
+    <h:form id="formLayout">
+        <p:toolbar style="margin-bottom: 10px;">
+            <p:toolbarGroup align="center">
+                <h1>Sistema de Salário</h1>
+            </p:toolbarGroup>
+
+            <p:toolbarGroup align="right">
+                <p:outputLabel value="Usuário: #{loginBean.usuarioLogado.nome}"
+                               style="margin-right: 10px;"/>
+                <p:button value="Início"
+                          outcome="/pages/home"
+                          icon="pi pi-home"
+                          style="margin-right: 5px;"
+                          rendered="#{facesContext.viewRoot.viewId ne '/pages/home.xhtml'}"/>
+                <p:commandButton value="Logout"
+                                 action="#{loginBean.logout}"
+                                 icon="pi pi-sign-out"
+                                 styleClass="ui-button-danger"/>
+            </p:toolbarGroup>
+        </p:toolbar>
+    </h:form>
+
+    <p:panel style="margin: 10px;">
+        <ui:insert name="conteudo"/>
+    </p:panel>
+</h:body>
+</html>

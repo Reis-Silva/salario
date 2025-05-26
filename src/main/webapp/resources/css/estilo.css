@@ -1,0 +1,44 @@
+.ui-datatable {
+    table-layout: auto;
+    width: 100% !important;
+}
+
+.ui-datatable td {
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 768px) {
+    .ui-datatable td {
+        white-space: normal;
+    }
+}
+
+.salario:before {
+    content: "R$";
+    margin-right: -4px;
+}
+
+h3 {
+    color: #2c3e50;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.campo select {
+    width: 250px;
+}
+
+.rotulo {
+    width: 35%;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.campo {
+    width: 65%;
+}
+
+
+
